@@ -74,7 +74,6 @@ module.exports={
  getProduct : async ()=>{
     try {
         const response = await Product.find({})
-        console.log(response,"get product responser");
         return response
     } catch (error) {
         
@@ -86,7 +85,6 @@ module.exports={
       const existingCart = await Cart.findOne({ userId: cartData.userId });
   
       if (!existingCart) {
-        console.log("oooooooooooooo");
   
         const data = {
           userId: cartData.userId,
@@ -97,7 +95,6 @@ module.exports={
         };
   
         const newCart = await Cart.create(data);
-        console.log(newCart, "cart added success");
       } else {
         const checkUpdateCart = await existingCart.products.find((product)=>product.productId === cartData.productId)
         console.log(checkUpdateCart,"============");
@@ -110,7 +107,6 @@ module.exports={
                 { $inc: { 'products.$.quantity': 1 } },
                 { new: true }
               );
-         console.log(incrementQuantity);
         }else{
             const updateCart = await Cart.findOneAndUpdate(
                 { userId: cartData.userId },
@@ -125,37 +121,7 @@ module.exports={
     }
   },
 
-//   getCartProduct: async (userId) => {
-//     console.log(userId, ")()()()()(");
-//     try {
-//       const cart = await Cart.aggregate([
-//         {
-//           $match: { userId: userId },
-//         },
-//         {
-//           $lookup: {
-//             from: 'products',
-//             localField: 'products.productId',
-//             foreignField: '_id',
-//             as: 'productDetails',
-//           },
-//         },
-//         // Optionally, you can project only the necessary fields
-//         {
-//           $project: {
-//             _id: 1,
-//             userId: 1,
-//             productDetails: 1,
-//           },
-//         },
-//       ]);
 
-//       console.log(cart,"oooooooo");
-//       // The 'cart' variable now contains the aggregated data with product details nested within the products array
-//     } catch (error) {
-//       console.error(error);
-//     }
-// }
 
  getCartProduct : async (userId) => {
     try {

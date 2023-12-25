@@ -3,7 +3,6 @@ const userHelper=require('../Helper/userHelper')
 
 module.exports={
    registerUser: async (req, res) => {
-    console.log('hhhhhhhhhh');
         try {
            
             const response = await userHelper.signup(req.body);
