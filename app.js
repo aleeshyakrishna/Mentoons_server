@@ -19,12 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const corsOptions = {
-  origin: 'https://mentoons-ecommerse.vercel.app/',
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
 
-app.use(cors(corsOptions));
+app.use(cors())
 app.use('/', usersRouter);
 
 // catch 404 and forward to error handler
